@@ -18,7 +18,7 @@ import {fetchItems, setupDatabase} from "../services/db-service";
 import MyComponent from "../components/MyComponent"
 
 
-export function PersonListScreen ({ navigation }) {
+export function DictionaryScreen ({ navigation }) {
 
     const [items, setItems] = useState([]);
     const [empty, setEmpty] = useState([]);
@@ -92,6 +92,7 @@ export function PersonListScreen ({ navigation }) {
             </View>
         );
     }
+
     const navigateToEditScreen = (id, word, translation) => {
 
         navigation.navigate('Edit word', {
@@ -101,10 +102,21 @@ export function PersonListScreen ({ navigation }) {
         });
     }
     setupDatabase();
-    //render = () => {
+    const listViewItemSeparator = () => {
         return (
-            <View>
-            <View style={styles.container}>
+            <View
+                style={{
+                    height: 0.4,
+                    width: '100%',
+                    backgroundColor: '#3FD1C2'
+                }}
+            />
+        );
+    };
+    //render = () => {style={styles.container}style={styles.container}style={styles.container}
+        return (
+
+            <View >
 
                 <FontAwesome.Button
                     style={styles.button}
@@ -115,25 +127,26 @@ export function PersonListScreen ({ navigation }) {
                         navigation.navigate('Add new word');
                     }}>
                 </FontAwesome.Button>
-                    <View >
                         <View style={styles.container}>
                             <View style={styles.cell} ><Text style={styles. headerWord}> Word </Text></View>
                             <View style={styles.cell}><Text style={styles.headerTranslation}>Translation </Text></View>
                         </View>
-                            <FlatList
-                                data={items}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) =>
-                                    <View key={item.id} >
-                                        <TouchableOpacity style={styles.container}
-                                        onPress={() => navigateToEditScreen(item.id, item.word, item.translation)}>
-                                            <View style={styles.cell} ><Text style={styles.word}>  {item.word} </Text></View>
-                                            <View style={styles.cell}><Text style={styles.translation}> {item.translation} </Text></View>
-                                        </TouchableOpacity>
-                                    </View>
-                                }
-                            />
-                    </View>
+                <View style={{marginBottom:210}}>
+                        <FlatList
+                            ItemSeparatorComponent={listViewItemSeparator}
+                            data={items}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <View key={item.id} >
+                                    <TouchableOpacity style={styles.container}
+                                    onPress={() => navigateToEditScreen(item.id, item.word, item.translation)}>
+                                        <View style={styles.cell} ><Text style={styles.word}>  {item.word} </Text></View>
+                                        <View style={styles.cell}><Text style={styles.translation}> {item.translation} </Text></View>
+                                    </TouchableOpacity>
+                                </View>
+                            }
+                        />
+                </View>
                 {/* <FlatList
                     style={styles.list}
                     data={list}
@@ -143,9 +156,7 @@ export function PersonListScreen ({ navigation }) {
                     onRefresh={this.onRefresh}
                     onEndReached={this.onScrollToEnd}
                     onEndReachedThreshold={0.2}
-                /> */}
-            </View>
-                {/*} <MyComponent > </MyComponent>*/}
+                /> */}{/*} <MyComponent > </MyComponent>*/}
             </View>
         );
    // };
@@ -159,8 +170,6 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         padding: 12,
         color: '#3FD1C2B2',
-        borderColor: '#3FD1C2',
-        borderBottomWidth: 0.4,
         backgroundColor: '#2A2727',
     },
     cell: {
@@ -172,7 +181,7 @@ const styles = StyleSheet.create({
     button: {
         paddingLeft: 15,
         backgroundColor: '#2A2727FF',
-        marginRight: 0,
+        paddingRight: 0,
     },
     word: {
         fontSize: 16,

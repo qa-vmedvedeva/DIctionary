@@ -1,9 +1,9 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, View, Image, Text, TextInput, Button, Alert} from 'react-native';
+import {StyleSheet, View, Image, Text, TextInput, Button, Alert, TouchableOpacity} from 'react-native';
 import {db, fetchItems, setupDatabase} from "../services/db-service";
 
 
-export function PersonInfoScreen ({route, navigation}) {
+export function EditWordScreen ({route, navigation}) {
 
     const [S_Id, setID] = useState('');
     const [S_Word, setWord] = useState('');
@@ -38,7 +38,7 @@ export function PersonInfoScreen ({route, navigation}) {
             //  forceUpdate
         );
     }
-    function deleteWorld () {
+    function deleteWord () {
         db.transaction(
             (tx) => {
                 tx.executeSql("delete from Dictionary where id=?;",[S_Id], (tx, results) => {
@@ -67,46 +67,45 @@ function handleSubmit ()  {
         navigation.navigate('My Dictionary');
     }
     //render = () => {
-       // const {word} = this.props.route.params;
-        return (
-            <View >
-                <TextInput style={styles.cellWord}
-                           onChangeText={ (text) => setWord(text)}
-                           value={S_Word}
-                           placeholder="Word"
-                />
-                <TextInput style={styles.cellWord}
-                           onChangeText={ (text) => setTranslation(text)}
-                           value={S_Translation}
-                           placeholder= "Translation"
-                />
-                <View style={styles.container}>
-                    <Button style={styles.button}
-                            color={'#3FD1C2B2'}
-                            title={'Save'}
-                            onPress={handleSubmit}
-                    />
-                    <Button
-                            color={'#460707'}
-                            title={'Delete'}
-                            onPress={deleteWorld}
-                    />
-                </View>
-            </View>
-        );
+    const btnSaveName = "Save";
+    const btnDeleteName = "Delete";
+    return (
+        <View style={styles.container}>
+            <TextInput style={styles.cellWord}
+                       multiline={true}
+                       onChangeText={ (text) => setWord(text)}
+                       value={S_Word}
+                       placeholder="Word"
+                       placeholderTextColor={'#3FD1C2B2'}
+            />
+            <TextInput style={styles.cellWord}
+                       multiline={true}
+                       onChangeText={ (text) => setTranslation(text)}
+                       value={S_Translation}
+                       placeholder= "Translation"
+                       placeholderTextColor={'#3FD1C2B2'}
+            />
+            <TouchableOpacity style={styles.button}
+                              onPress={handleSubmit} >
+                <Text style={styles.buttonTitle}>{btnSaveName}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}
+                              onPress={deleteWord}
+                              color={'#460707'}>
+                <Text style={styles.buttonDelete}>{btnDeleteName}</Text>
+            </TouchableOpacity>
+        </View>
+    );
 
    //};
 }
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'stretch',
-        justifyContent: 'space-evenly',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        padding: 12,
-        color: '#3FD1C2B2',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#2A2727',
+        color: '#3FD1C2B2',
     },
 
     cell: {
@@ -115,14 +114,34 @@ const styles = StyleSheet.create({
         padding: 50,
     },
     cellWord: {
+        alignItems: 'center',
         fontSize: 36,
         color: '#3FD1C2B2',
+        margin: 20,
     },
     cellValue: {
         fontSize: 16,
         color: 'rgba(63,209,194,0.7)',
     },
     button: {
-        width: '50%',
+        marginTop: 20,
     },
+    buttonTitle: {
+        justifyContent: 'center',
+        paddingHorizontal: 150,
+        paddingVertical: 7,
+        color: 'white',
+        fontSize: 20,
+        backgroundColor: '#32b4a4',
+        borderRadius: 8,
+    },
+    buttonDelete: {
+        justifyContent: 'center',
+        paddingHorizontal: 150,
+        paddingVertical: 7,
+        color: 'white',
+        fontSize: 20,
+        backgroundColor: '#2f0404',
+        borderRadius: 8,
+    }
 });
