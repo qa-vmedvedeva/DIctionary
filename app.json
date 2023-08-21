@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3fd1c2"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,11 +20,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#3fd1c2"
+      },
+      "package": "com.vasya_punk.Dictionary"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "77bdc558-5510-4e63-b19c-11e00462022d"
+      }
     }
   }
 }

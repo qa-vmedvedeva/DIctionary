@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {RootNavigator} from './navigators/RootNavigator';
+import {RootNavigator} from './src/navigators/RootNavigator';
 
 class App extends Component {
     render = () => {

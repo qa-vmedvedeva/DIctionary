@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     },
     cellValue: {
         fontSize: 16,
-        color: 'rgba(63,209,194,0.7)',
+        color: 'rgb(63,209,194)',
     },
     button: {
         paddingTop:40,
